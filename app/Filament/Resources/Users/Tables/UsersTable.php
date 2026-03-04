@@ -17,6 +17,12 @@ class UsersTable
                 //
                 TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('email')->searchable()->sortable(),
+                TextColumn::make('created_at')
+                ->label('Tanggal Dibuat') // Mengubah header tabel jadi Bahasa Indonesia
+                ->dateTime('d M Y H:i') // Format: 04 Mar 2026 20:45
+                ->sortable() // Membuat kolom bisa diklik untuk sorting (A-Z / Z-A)
+                ->searchable() // Agar bisa dicari lewat search bar
+                ->toggleable(isToggledHiddenByDefault: true), // Sembunyikan default, tapi bisa dimunculkan user
             ])
             ->filters([
                 //

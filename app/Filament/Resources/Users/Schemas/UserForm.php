@@ -18,10 +18,12 @@ class UserForm
                 TextInput::make('email')
                     ->email()
                     ->required()
-                    ->maxLength (255),
+                    ->maxLength (255)
+                    ->unique(ignoreRecord: true), //ini untuk membuat email jadi unik
                 TextInput::make('password')
                     ->password()
                     ->required()
+                    ->minLength(6) //password minimal 6
             ]);
     }
 }
