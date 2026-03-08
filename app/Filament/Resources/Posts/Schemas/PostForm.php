@@ -41,12 +41,18 @@ class PostForm
                 ]),
                 //alternatif Markdown
                 //RichEditor::make('body'),
-                FileUpload::make("image")
-                    ->disk("public")
-                    ->directory("posts"),
+                Section::make('Image Upload')
+                ->schema([
+                FileUpload::make('image')
+                ->disk('public')
+                ->directory('post'),
+                ]),
+                Section::make('Meta')
+                ->schema([
                 TagsInput::make('tags'),
                 Checkbox::make('published'),
                 DatePicker::make('published_at'),
+                ]),
             ]);
     }
 }
