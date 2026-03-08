@@ -12,7 +12,8 @@ use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
-
+use Filament\Schemas\Components\Section;
+use Filament\Support\Icons\Heroicon;
 
 class PostForm
 {
@@ -21,6 +22,10 @@ class PostForm
         return $schema
             ->components([
                 //
+                section::make("Post Details")
+                -> Description("Fill in the details of the post")
+                ->icon('heroicon-o-document-text')
+                ->schema([
                 TextInput::make('title')
                 ->required()
                 ->minLength(5), //minimal 5
@@ -32,7 +37,8 @@ class PostForm
                     ->preload()
                     ->searchable(),
                 ColorPicker::make('color'),
-                MarkdownEditor::make('body'),
+                MarkdownEditor::make('content'),
+                ]),
                 //alternatif Markdown
                 //RichEditor::make('body'),
                 FileUpload::make("image")
@@ -41,6 +47,6 @@ class PostForm
                 TagsInput::make('tags'),
                 Checkbox::make('published'),
                 DatePicker::make('published_at'),
-            ])->columns(3);
+            ]);
     }
 }
