@@ -31,7 +31,7 @@ class PostForm
                 MarkdownEditor::make('body'),
                 //alternatif Markdown
                 //RichEditor::make('body'),
-                FileUpload::make("Image")
+                FileUpload::make("image")
                     ->disk("public")
                     ->directory("posts"),
                 TagsInput::make('tags'),
