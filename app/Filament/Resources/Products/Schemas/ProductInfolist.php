@@ -16,24 +16,32 @@ class ProductInfolist
             ->components([
                 //
                 Section::make('Product Info')
-                    ->description('')
                     ->schema([
                         TextEntry::make('name')
                             ->label('Product Name')
                             ->weight('bold')
                             ->color('primary'),
-                        TextEntry::make('id')
-                         ->label('Product ID'),
+
                         TextEntry::make('sku')
                             ->label('Product SKU')
                             ->badge()
-                            ->color('success'),
+                            ->color('warning'), // 1. Badge SKU dengan warna berbeda (kuning/warning)
+
+                        TextEntry::make('price')
+                            ->label('Product Price')
+                            ->weight('bold')
+                            ->icon('heroicon-s-currency-dollar')
+                            // 3. Format harga menjadi Rp dengan formatStateUsing
+                            ->formatStateUsing(fn (string $state): string => 'Rp ' . number_format($state, 0, ',', '.')),
+
+                        TextEntry::make('stock')
+                            ->label('Product Stock')
+                            ->icon('heroicon-o-cube') // 2. Tambahkan icon pada Stock
+                            ->weight('bold'),
+
                         TextEntry::make('description')
-                            ->label('Product Description'),
-                        TextEntry::make('created_at')
-                            ->label('Product Creation Date')
-                            ->date('d M Y')
-                            ->color('info'),
+                            ->label('Product Description')
+                            ->columnSpanFull(),
                     ])
                 ->columnSpanFull(),
                 Section::make('Pricing & Stock')
