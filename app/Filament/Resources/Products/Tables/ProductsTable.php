@@ -21,8 +21,16 @@ class ProductsTable
                 TextColumn::make('sku'),
                 TextColumn::make('price'),
                 TextColumn::make('stock'),
+
+                // 3. Tambahkan badge kolom untuk status aktif
+                TextColumn::make('is_active')
+                    ->label('Status')
+                    ->badge()
+                    ->color(fn (bool $state): string => $state ? 'success' : 'danger')
+                    ->formatStateUsing(fn (bool $state): string => $state ? 'Active' : 'Inactive'),
+
                 ImageColumn::make('image')
-                ->disk('public'),
+                    ->disk('public'),
             ])
             ->filters([
                 //

@@ -22,35 +22,37 @@ class ProductForm
                 // Step::make('Product Details')
                     Step::make('Product Info')
                         ->description('Isi Informasi Produk')
+                        ->icon('heroicon-o-information-circle') // 1. Tambah Icon
                         ->schema([
                             Group::make([
-                                TextInput::make('name')
-                                ->required(),
-                                TextInput::make('sku')
-                                ->required(),
-                                ])->columns(2),
-                            MarkdownEditor:: make('description')
+                                TextInput::make('name')->required(),
+                                TextInput::make('sku')->required(),
+                            ])->columns(2),
+                            MarkdownEditor::make('description')
                         ]),
                 // Step::make('Product prices')
                     Step::make('Product Price and Stock')
                         ->description('Isi Harga Produk')
+                        ->icon('heroicon-o-currency-dollar') // 1. Tambah Icon
                         ->schema([
                             Group::make([
                                 TextInput::make('price')
-                                ->numeric()
-                                ->required(),
+                                    ->numeric()
+                                    ->required()
+                                    ->minValue(1), // 2. Validasi harga > 0
                                 TextInput::make('stock')
-                                ->required(),
+                                    ->numeric()
+                                    ->required(),
                             ])->columns(2),
-                            MarkdownEditor:: make('description')
                         ]),
                 // step media status
                     Step::make('Media & Status')
                         ->description('Upload gambar dan atur status')
+                        ->icon('heroicon-o-photo') // 1. Tambah Icon
                         ->schema([
                             FileUpload::make('image')
-                            ->disk('public')
-                            ->directory('products'),
+                                ->disk('public')
+                                ->directory('products'),
                             Checkbox::make('is_active'),
                             Checkbox::make('is_featured'),
                         ]),
