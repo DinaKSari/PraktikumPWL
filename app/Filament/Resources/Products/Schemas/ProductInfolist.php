@@ -68,8 +68,10 @@ class ProductInfolist
                         IconEntry::make('is_featured')
                             ->label('Is Featured?')
                             ->boolean(),
+                    ])
                 ])
-                ])->columnSpanFull(),
+                ->columnSpanFull()
+                ->vertical(), //tambahkan ini
                 Section::make('Product Info')
                     ->schema([
                         TextEntry::make('name')
