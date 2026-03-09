@@ -11,23 +11,42 @@ use Filament\Tables\Columns\ColorColumn;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\IconColumn;
 
-
 class PostsTable
 {
     public static function configure(Table $table): Table
     {
         return $table
             ->columns([
-                //
-                TextColumn::make('title'),
-                TextColumn::make('slug'),
-                TextColumn::make('category.name'),
+                // 1. Aktifkan sorting pada semua kolom teks
+                TextColumn::make('title')
+                    ->sortable()
+                    ->searchable(),
+
+                TextColumn::make('slug')
+                    ->sortable(),
+
+                TextColumn::make('category.name')
+                    ->label('Category')
+                    ->sortable(),
+
                 ColorColumn::make('color'),
+
                 ImageColumn::make('image')
                     ->disk('public'),
+
                 IconColumn::make('published')
-                ->boolean()
+                    ->label('Status')
+                    ->boolean()
+                    ->sortable(),
+
+                TextColumn::make('created_at')
+                    ->label('Created At')
+                    ->dateTime()
+                    ->sortable(), // 1. Sorting aktif di kolom tanggal
             ])
+            // 2. Buat default sorting berdasarkan Created At descending
+            ->defaultSort('created_at', 'desc')
+
             ->filters([
                 //
             ])
