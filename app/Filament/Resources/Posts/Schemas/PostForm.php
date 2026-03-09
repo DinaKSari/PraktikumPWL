@@ -29,15 +29,20 @@ class PostForm
                     ->schema([
                         Group::make([
                             TextInput::make('title')
-                                ->required()
-                                ->minLength(5),
+                            ->required()
+                            ->rules('min:3|max:100'),
                             TextInput::make('slug')
-                                ->required()
-                                ->unique(ignoreRecord: true),
+                            ->required()
+                            ->unique()
+                            ->validationMessages([
+                            'unique' => 'Slug harus unik.',
+                            ]),
+                                //->unique(ignoreRecord: true),
                             Select::make("category_id")
                                 ->relationship("category", "name")
                                 ->preload()
-                                ->searchable(),
+                                ->searchable()
+                                ->required(),
                             ColorPicker::make('color'),
                         ])->columns(2), // 2 kolom untuk field utama di dalam section
 
@@ -51,7 +56,8 @@ class PostForm
                         ->schema([
                             FileUpload::make("image")
                                 ->disk("public")
-                                ->directory("posts"),
+                                ->directory("posts")
+                                ->required(),
                         ]),
 
                     Section::make("Meta Information")
