@@ -30,10 +30,11 @@ class PostForm
                         Group::make([
                             TextInput::make('title')
                             ->required()
-                            ->rules('min:3|max:100'),
+                            ->rules('min:5|max:100'),
                             TextInput::make('slug')
                             ->required()
                             ->unique()
+                            ->rules('min:3')
                             ->validationMessages([
                             'unique' => 'Slug harus unik.',
                             ]),
@@ -42,7 +43,10 @@ class PostForm
                                 ->relationship("category", "name")
                                 ->preload()
                                 ->searchable()
-                                ->required(),
+                                ->required()
+                                ->validationMessages([
+                                'required' => 'Category harus dipilih',
+                                ]),
                             ColorPicker::make('color'),
                         ])->columns(2), // 2 kolom untuk field utama di dalam section
 
