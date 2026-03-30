@@ -14,6 +14,7 @@ use Filament\Tables\Filters\Filter;
 use Filament\Forms\Components\DatePicker;
 use Filament\Tables\Filters\SelectFilter;
 
+
 class PostsTable
 {
     public static function configure(Table $table): Table
@@ -21,23 +22,35 @@ class PostsTable
         return $table
             ->columns([
                 // 1. Aktifkan sorting pada semua kolom teks
+                TextColumn::make('id')
+                ->label('ID')
+                ->sortable()
+                ->toggleable(isToggledHiddenByDefault: true),
+
                 TextColumn::make('title')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
 
                 TextColumn::make('slug')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
 
                 TextColumn::make('category.name')
                     ->label('Category')
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(),
 
                 ColorColumn::make('color'),
 
                 ImageColumn::make('image')
                     ->disk('public'),
+
+                TextColumn::make('tags')
+                ->label('Tags')
+                ->toggleable(isToggledHiddenByDefault: true),
 
                 IconColumn::make('published')
                     ->label('Status')
@@ -66,7 +79,7 @@ class PostsTable
                 fn ($query, $date) => $query->whereDate('created_at', $date)
                 );
                 }),
-                
+
                 SelectFilter::make('category_id')
                 ->label('Select Category')
                 ->relationship('category', 'name')
