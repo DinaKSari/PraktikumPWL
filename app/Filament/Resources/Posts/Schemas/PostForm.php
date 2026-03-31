@@ -13,6 +13,8 @@ use Filament\Forms\Components\Checkbox;
 use Filament\Forms\Components\DatePicker;
 use Filament\Schemas\Components\Section;
 use Filament\Schemas\Components\Group;
+use App\Models\Category;
+use App\Models\Tag;
 
 class PostForm
 {
@@ -41,7 +43,8 @@ class PostForm
                                 //->unique(ignoreRecord: true),
                             Select::make("category_id")
                                 ->relationship("category", "name")
-                                ->preload()
+                                ->options (Category::all()->pluck("name", "id"))
+                                //->preload()
                                 ->searchable()
                                 ->required()
                                 ->validationMessages([
@@ -67,7 +70,11 @@ class PostForm
                     Section::make("Meta Information")
                         ->icon('heroicon-o-list-bullet') // Ikon berbeda
                         ->schema([
-                            TagsInput::make("tags"),
+                            select::make('tags')
+                            ->relationship('tags','name')
+                            ->multiple()
+                            ->preload()
+                            ,
                             Checkbox::make("published"),
                             DatePicker::make('published_at'),
                         ]),

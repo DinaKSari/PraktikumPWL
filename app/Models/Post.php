@@ -14,7 +14,7 @@ class Post extends Model
     'color',
     'image',
     'body',
-    'tags',
+    //'tags',hapus
     'published',
     'published_at',
     ];
@@ -29,4 +29,10 @@ class Post extends Model
     {
     return $this->belongsTo(Category::class);
     }
+
+    public function tags()
+    {
+    return $this->belongsToMany(Tag::class,'post_tag');
+    }
+
 }

@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-            Schema::create('categories', function (Blueprint $table) {
-            $table->id(); // Menambahkan ID sebagai primary key
+        Schema::create('categories', function (Blueprint $table) {
+            $table->id(); // Cukup seperti ini, otomatis menjadi primary key 'id'
             $table->string('name');
-            $table->string('slug')->unique(); // Validasi unik di level database
+            $table->string('slug')->unique();
             $table->timestamps();
         });
     }
